@@ -21,6 +21,11 @@ BACKUP="/home/backup/`date +%d`/"
 
 echo "Backup iniciado `date`" > $LOG
 
+# Verifica se o diretório de backup existe, caso não exista, cria
+if [ ! -d "$BACKUP" ]; then
+	mkdir -p $BACKUP
+fi
+
 # Deleta o backup antigo
 rm -rf $BACKUP/*.7z 2> /dev/null
 
@@ -37,11 +42,6 @@ done < /tmp/bancos.txt
 echo "Fim da exportacao dos bancos `date`" >> $LOG
 
 echo "Inicio da compressao dos bancos `date`" >> $LOG
-
-# Verifica se o diretório de backup existe, caso não exista, cria
-if [ ! -d "$BACKUP" ]; then
-	mkdir -p $BACKUP
-fi
 
 cd $BACKUP
 
