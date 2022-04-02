@@ -1,7 +1,7 @@
 #!/bin/bash
 # Criado: Tácio de Jesus Andrade - tacio@multiti.com
 # Data: 30-05-2016
-# Ultima modificação: 01/04/2022
+# Ultima modificação: 02/04/2022
 # Função: Script que executa o backup do mysql e comacta com 7zip
 # Informações: Antes de executar esse script tenha instalado os pacotes p7zip-full e o mysql-client,
 #              além disso, crie um usuário no Mysql ou MariaDB apenas para leitura com o comando:
@@ -37,6 +37,11 @@ done < /tmp/bancos.txt
 echo "Fim da exportacao dos bancos `date`" >> $LOG
 
 echo "Inicio da compressao dos bancos `date`" >> $LOG
+
+# Verifica se o diretório de backup existe, caso não exista, cria
+if [ ! -d "$BACKUP" ]; then
+	mkdir -p $BACKUP
+fi
 
 cd $BACKUP
 
